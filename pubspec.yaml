@@ -1,0 +1,55 @@
+name: exam_app
+description: College Capstone Project
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  mobx: ^2.0.7+4
+  flutter_mobx: ^2.0.6+1
+  provider: ^6.0.3
+  dio: ^4.0.6
+
+  camera: ^0.9.8+1
+
+  path:
+  path_provider: ^2.0.11
+
+  google_mlkit_face_detection: ^0.3.0
+
+  timer_count_down: ^2.2.1
+  flutter_easyloading: ^3.0.5
+  http: ^0.13.4
+  date_format: ^2.0.6
+  duration: ^3.0.11
+  confirm_dialog: ^1.0.1
+  flutter_dotenv: ^5.0.2
+  image: ^3.2.0
+  characters: ^1.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.1.11
+  mobx_codegen: ^2.0.7
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Roboto-Medium
+      fonts:
+        - asset: assets/fonts/Roboto-Medium.ttf
+
+  assets:
+    - .env
+    - assets/images/logo.png

@@ -71,13 +71,13 @@ class ExamNavigationButtons extends StatelessWidget {
           },
         ),
         // TODO: For Testing, remove during actual app
-        SizedBox(width: 20),
-        ExamButton(
-          text: "AI",
-          onPressed: () {
-            onAI();
-          },
-        ),
+        // SizedBox(width: 20),
+        // ExamButton(
+        //   text: "AI",
+        //   onPressed: () {
+        //     onAI();
+        //   },
+        // ),
       ],
     );
   }

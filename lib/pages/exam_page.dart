@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
@@ -31,6 +32,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
   CameraController? _cameraController;
   Future<void>? _initializeControllerFuture;
   XFile? lastImage;
+  Timer? timer;
 
   @override
   void initState() {
@@ -38,6 +40,8 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     initCameras();
     FaceDetectionUtil.initialize();
+    timer = Timer.periodic(Duration(seconds: 5),
+        (Timer t) => [_onPictureClicked(), _onAITapped()]);
   }
 
   @override
@@ -46,6 +50,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     _cameraController!.dispose();
     FaceDetectionUtil.close();
     _countdownController!.start();
+    timer?.cancel();
     super.dispose();
   }
 
@@ -104,29 +109,27 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     // TODO: Set onWillPop false
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.camera_alt),
-          onPressed: _onPictureClicked,
-        ),
-        appBar: _buildAppBar(),
-        body: SingleChildScrollView(
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                QuestionWidget(),
-                SizedBox(height: 20),
-                ExamNavigationButtons(onAI: _onAITapped),
-                SizedBox(height: 30),
-                _buildInfoWidget(),
-                SizedBox(height: 30),
-                _buildQuestionButtons(),
-                SizedBox(height: 30),
-                _buildVideoSection(),
-                SizedBox(height: 50),
-              ],
+      child: SafeArea(
+        child: Scaffold(
+          appBar: _buildAppBar(),
+          body: SingleChildScrollView(
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  QuestionWidget(),
+                  SizedBox(height: 20),
+                  ExamNavigationButtons(onAI: _onAITapped),
+                  SizedBox(height: 30),
+                  _buildInfoWidget(),
+                  SizedBox(height: 30),
+                  _buildQuestionButtons(),
+                  SizedBox(height: 30),
+                  _buildVideoSection(),
+                  SizedBox(height: 50),
+                ],
+              ),
             ),
           ),
         ),
@@ -200,7 +203,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       child: GridView.count(
         crossAxisCount: 7,
         shrinkWrap: true,
-        padding: EdgeInsets.all(2),
+        padding: EdgeInsets.all(10),
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
         physics: NeverScrollableScrollPhysics(),
@@ -235,24 +238,30 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     );
   }
 
-  _buildImage() {
-    return Container(
-      padding: EdgeInsets.all(6),
-      // child:
-      //     lastImage != null ? Image.file(File(lastImage!.path)) : Container(),
-      child: Container(),
-    );
-  }
+  // _buildImage() {
+  //   return Container(
+  //     padding: EdgeInsets.all(6),
+  //     // child:
+  //     //     lastImage != null ? Image.file(File(lastImage!.path)) : Container(),
+  //     child: Container(),
+  //   );
+  // }
 
   _buildVideoSection() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: _buildCameraStream(),
+        SizedBox(
+          width: 10,
+          height: 10,
         ),
-        Expanded(
-          child: _buildImage(),
-          // child: Container(),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          // padding: EdgeInsets.all(6),
+          alignment: Alignment.bottomRight,
+          height: 150,
+          width: 150,
+          child: _buildCameraStream(),
         ),
       ],
     );
@@ -283,7 +292,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     if (cheatingStatus == CheatingStatus.Detected) {
       AppUtils.showToast("CHEATING DETECTED");
     } else if (cheatingStatus == CheatingStatus.NotDetected) {
-      AppUtils.showToast("NO CHEATING DETECTED");
+      // AppUtils.showToast("NO CHEATING DETECTED");
     } else {
       AppUtils.showToast("Failed to detect face");
     }

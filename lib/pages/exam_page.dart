@@ -27,6 +27,7 @@ class ExamPage extends StatefulWidget {
 class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
   Exam? exam;
   CountdownController? _countdownController;
+  var count = 0;
 
   List<CameraDescription>? _cameras;
   CameraController? _cameraController;
@@ -61,6 +62,10 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed &&
         !context.read<ExamStore>().didLeaveExam) {
       context.read<ExamStore>().didLeaveExam = true;
+      count = count + 1;
+      if (count >= 5) {
+        Navigator.pop(context);
+      }
       print('paused');
       _countdownController!.pause();
 
@@ -282,7 +287,6 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       AppUtils.showToast("Failed to capture image");
       return;
     }
-
     String path = lastImage!.path;
     List<Face> faces = await FaceDetectionUtil.detectFromImagePath(path);
 
@@ -291,10 +295,22 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
 
     if (cheatingStatus == CheatingStatus.Detected) {
       AppUtils.showToast("CHEATING DETECTED");
+      count = count + 1;
+      print(count);
+      if (count >= 5) {
+        Navigator.pop(context);
+      }
+      print('CHEATING DETECTED');
     } else if (cheatingStatus == CheatingStatus.NotDetected) {
       // AppUtils.showToast("NO CHEATING DETECTED");
+      print('NO CHEATING DETECTED');
     } else {
       AppUtils.showToast("Failed to detect face");
+      print('Failed to detect face');
+      count = count + 1;
+      if (count >= 5) {
+        Navigator.pop(context);
+      }
     }
   }
 }

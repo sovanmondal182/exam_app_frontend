@@ -41,10 +41,9 @@ class ExamNavigationButtons extends StatelessWidget {
                       bool confirmEnd = await confirm(
                         context,
                         title: Text('WARNING'),
-                        content: Text(
-                            'You exited the exam 3 times and suspicious behavior was detected 1 times?'),
+                        content: Text('Do you want to submit the exam?'),
                         textOK: Text(
-                          'END',
+                          'SUBMIT',
                           style: TextStyle(color: Colors.red),
                         ),
                         textCancel: Text('CANCEL'),
@@ -53,7 +52,6 @@ class ExamNavigationButtons extends StatelessWidget {
                       if (confirmEnd) {
                         Student student =
                             context.read<StudentStore>().currentStudent!;
-                        // _cameraController!.dispose();
                         context
                             .read<ExamStore>()
                             .endExam(context, student.id, student.token);

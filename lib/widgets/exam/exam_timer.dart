@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
+import '../../models/student/Student.dart';
+import '../../stores/student/student_store.dart';
+
 // ignore: must_be_immutable
 class ExamTimer extends StatelessWidget {
   Exam? exam;
@@ -17,9 +20,16 @@ class ExamTimer extends StatelessWidget {
       padding: EdgeInsets.only(right: 10),
       child: Countdown(
         seconds: 60 * exam!.duration.inMinutes,
+        // seconds: 10,
         build: (context, val) {
           int minutes = val ~/ 60;
           int secs = (val % 60).toInt();
+          if (minutes == 0 && secs == 0) {
+            Student student = context.read<StudentStore>().currentStudent!;
+            context
+                .read<ExamStore>()
+                .endExam(context, student.id, student.token);
+          }
           return Text(
             '$minutes:$secs',
             style: TextStyle(

@@ -2,7 +2,6 @@ import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
-import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:exam_app/widgets/home/exam_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

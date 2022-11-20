@@ -4,6 +4,7 @@ class DioErrorUtil {
   // general methods:------------------------------------------------------------
   static String handhandleErrorleError(DioError error) {
     String errorDescription = "";
+    // ignore: unnecessary_type_check
     if (error is DioError) {
       switch (error.type) {
         case DioErrorType.cancel:

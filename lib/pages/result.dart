@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:exam_app/network/exam_apis.dart';
 
 class ResultPage extends StatelessWidget {
   ResultPage({Key? key, required this.score}) : super(key: key);
@@ -10,6 +9,7 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("Result"),
       ),
       body: Container(

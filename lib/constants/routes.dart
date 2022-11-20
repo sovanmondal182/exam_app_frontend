@@ -1,7 +1,7 @@
 import 'package:exam_app/pages/exam_page.dart';
 import 'package:exam_app/pages/home_page.dart';
 import 'package:exam_app/pages/login_page.dart';
-import 'package:exam_app/pages/result.dart';
+import 'package:exam_app/pages/splash.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -12,13 +12,11 @@ class Routes {
   static const String login = '/login';
   static const String home = '/home';
   static const String exam = '/exam';
-  static const String result = '/result';
 
   static final routes = <String, WidgetBuilder>{
-    // splash: (BuildContext context) => SplashScreen(),
+    splash: (BuildContext context) => SplashScreen(),
     login: (BuildContext context) => LoginPage(),
     home: (BuildContext context) => HomePage(),
     exam: (BuildContext context) => ExamPage(),
-    // result: (BuildContext context) => ResultPage(),
   };
 }

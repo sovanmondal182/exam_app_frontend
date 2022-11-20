@@ -13,6 +13,7 @@ enum ExamType {
   Future,
 }
 
+// ignore: must_be_immutable
 class ExamCard extends StatelessWidget {
   final Exam exam;
   ExamType? examType;

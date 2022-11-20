@@ -1,21 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/models/exam/Question.dart';
 import 'package:exam_app/network/exam_apis.dart';
 import 'package:exam_app/pages/result.dart';
-import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:provider/provider.dart';
 import 'package:timer_count_down/timer_controller.dart';
-import 'package:http/http.dart' as http;
-
-import '../../constants/api_endpoints.dart';
 
 part 'exam_store.g.dart';
 
@@ -80,52 +73,46 @@ abstract class _ExamStore with Store {
   endExam(BuildContext context, String studentId, String token) async {
     try {
       AppUtils.showLoading("Submitting Exam...");
-      bool submitted = await ExamApi.submitExam(
+      List<String?> answersList = [];
+      answers?.forEach((element) {
+        if (element == null) {
+          answersList.add("Not Selected");
+        } else {
+          answersList.add(element);
+        }
+      });
+      print(answers!.toList());
+      print(answersList);
+      int submitted = await ExamApi.submitExam(
         studentId,
         _currentExam!.id,
-        answers!.toList(),
+        // answers!.toList(),
+        answersList,
         token,
       );
 
-      var url = Uri.parse(APIEndpoints.getSubmitExam(studentId));
-
-      http.Response response = await http.post(
-        url,
-        body: jsonEncode({"examId": _currentExam!.id, "answers": answers}),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          HttpHeaders.authorizationHeader: "Bearer $token"
-        },
-      );
-      var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse["score"]);
-      if (submitted) {
-        // Navigator.pop(context);
-        Timer(Duration(milliseconds: 100), () {
+      if (submitted >= 0) {
+        Timer(Duration(seconds: 1), () {
           _currentExam = null;
           totalQuestions = null;
-          answers = null;
+          // answers = null;
+          answersList = [];
           countdownController!.pause();
-          countdownController = null;
+          // countdownController = null;
           currentQuestionNo = 0;
         });
         AppUtils.dismissLoading();
-        // Navigator.popAndPushNamed(context, Routes.result);
-        int score = jsonResponse["score"].toInt();
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
             builder: (BuildContext context) => ResultPage(
-              score: score,
+              score: submitted,
             ),
           ),
         );
-        // context.read<AssignedExamStore>().getAssignedExams(studentId, token);
       }
     } catch (e) {
       print(e);
-      AppUtils.showToast(e.toString());
     }
   }
 

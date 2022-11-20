@@ -1,5 +1,4 @@
 import 'package:exam_app/models/exam/Question.dart';
-import 'package:characters/characters.dart';
 
 class Exam {
   final String id;
@@ -63,6 +62,15 @@ class Exam {
     );
   }
 
-  // TODO: Implement toJson()
-  Map<String, dynamic> toJson() => {};
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'startDate': startDate,
+        'endDate': endDate,
+        'duration': duration,
+        'questionCount': questionCount,
+        'questions': questions,
+        'answerKeys': answerKeys,
+        'status': status,
+      };
 }

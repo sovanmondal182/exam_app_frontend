@@ -6,6 +6,8 @@ import 'package:exam_app/models/exam/Exam.dart';
 import 'package:http/http.dart' as http;
 
 class ExamApi {
+  int score = 0;
+
   static Future<Exam> getExam(
     String examId,
     String studentId,
@@ -18,7 +20,6 @@ class ExamApi {
     });
 
     var jsonResponse = jsonDecode(response.body);
-    // print(jsonResponse);
     if (jsonResponse['err'] != null) {
       throw jsonResponse['err'];
     } else {
@@ -31,13 +32,11 @@ class ExamApi {
     String token,
   ) async {
     var url = Uri.parse(APIEndpoints.getAssignedExam(studentId));
-    // print(token);
     http.Response response = await http.get(url, headers: {
       HttpHeaders.authorizationHeader: "Bearer $token",
     });
 
     var jsonResponse = jsonDecode(response.body);
-    // print(jsonResponse);
     if (jsonResponse['err'] != null) {
       throw jsonResponse['err'];
     } else {
@@ -49,17 +48,25 @@ class ExamApi {
     }
   }
 
-  static Future<bool> submitExam(
+  static Future<int> submitExam(
     String studentId,
     String examId,
     List<String?> answers,
     String token,
   ) async {
+    List<String?> answersList = [];
+    answers.forEach((element) {
+      if (element == null) {
+        answersList.add("Not Selected");
+      } else {
+        answersList.add(element);
+      }
+    });
     var url = Uri.parse(APIEndpoints.getSubmitExam(studentId));
 
     http.Response response = await http.post(
       url,
-      body: jsonEncode({"examId": examId, "answers": answers}),
+      body: jsonEncode({"examId": examId, "answers": answersList}),
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -73,7 +80,7 @@ class ExamApi {
       print("ERR:" + jsonResponse['err']);
       throw jsonResponse['err'];
     } else {
-      return true;
+      return jsonResponse["score"];
     }
   }
 }

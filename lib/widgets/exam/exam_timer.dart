@@ -20,7 +20,6 @@ class ExamTimer extends StatelessWidget {
       padding: EdgeInsets.only(right: 10),
       child: Countdown(
         seconds: 60 * exam!.duration.inMinutes,
-        // seconds: 10,
         build: (context, val) {
           int minutes = val ~/ 60;
           int secs = (val % 60).toInt();

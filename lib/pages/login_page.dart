@@ -41,12 +41,6 @@ class _LoginPageState extends State<LoginPage> {
         _idController.text,
         _passwordController.text,
       );
-      // Student student = Student(
-      //   id: "63736ebf5ab865e02d343134",
-      //   fname: "John",
-      //   lname: "Doe",
-      //   token: "token",
-      // );
 
       context.read<StudentStore>().login(student);
       context
@@ -90,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "ANTI CHEAT EXAM APP",
+                    "ONLINE EXAM APP",
                     style: TextStyle(
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 30,

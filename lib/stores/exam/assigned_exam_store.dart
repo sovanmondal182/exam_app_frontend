@@ -20,7 +20,8 @@ abstract class _AssignedExamStore with Store {
       List<Exam> exams = await ExamApi.getAssignedExams(studentId, token);
       assignedExams.addAll(exams);
     } catch (e) {
-      AppUtils.showToast(e.toString() + ", Please try again later");
+      print(e.toString());
+      AppUtils.showToast("Please try again later");
     } finally {
       AppUtils.dismissLoading();
     }

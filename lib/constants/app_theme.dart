@@ -5,17 +5,21 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static final ThemeData themeData = new ThemeData(
+  static final ThemeData themeData = ThemeData(
     fontFamily: FontFamily.productSans,
     brightness: Brightness.light,
-    primarySwatch:
-        MaterialColor(AppColors.orange[500]!.value, AppColors.orange),
-    primaryColor: AppColors.orange[500],
+    primaryColor: Colors.indigo,
+    primaryColorLight: Colors.indigo[200],
+    primaryColorDark: Colors.white,
+    primaryIconTheme: IconThemeData(color: Colors.indigo[200]),
   );
 
   static final ThemeData themeDataDark = ThemeData(
     fontFamily: FontFamily.productSans,
     brightness: Brightness.dark,
-    primaryColor: AppColors.orange[500],
+    primaryColor: Colors.purpleAccent[700],
+    primaryColorLight: Colors.purpleAccent[100],
+    primaryColorDark: Colors.black87,
+    primaryIconTheme: IconThemeData(color: Colors.purpleAccent[100]),
   );
 }

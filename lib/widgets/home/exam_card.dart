@@ -1,3 +1,4 @@
+import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/models/student/Student.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
@@ -18,8 +19,11 @@ class ExamCard extends StatelessWidget {
   final Exam exam;
   ExamType? examType;
 
+  bool iconBool;
+
   ExamCard({
     required this.exam,
+    required this.iconBool,
   });
 
   onStartExamTapped(BuildContext context) async {
@@ -103,7 +107,7 @@ class ExamCard extends StatelessWidget {
                       Text(
                         formatDate(
                           exam.startDate,
-                          [dd, ' ', M, ', ', HH, ':', nn, ' ', am],
+                          [dd, ' ', M, ', ', hh, ':', nn, ' ', am],
                         ),
                         style: TextStyle(
                           fontFamily: "assets/fonts/Roboto-Medium.ttf",
@@ -122,7 +126,7 @@ class ExamCard extends StatelessWidget {
                       Text(
                         formatDate(
                           exam.endDate,
-                          [dd, ' ', M, ', ', HH, ':', nn, ' ', am],
+                          [dd, ' ', M, ', ', hh, ':', nn, ' ', am],
                         ),
                         style: TextStyle(
                           fontFamily: "assets/fonts/Roboto-Medium.ttf",
@@ -181,7 +185,8 @@ class ExamCard extends StatelessWidget {
                   GestureDetector(
                     onTap: examType != ExamType.Present
                         ? () {
-                            onStartExamTapped(context);
+                            // onStartExamTapped(context);
+                            print(iconBool);
                           }
                         : () {
                             onStartExamTapped(context);
@@ -191,8 +196,12 @@ class ExamCard extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         color: examType != ExamType.Present
-                            ? Color(0xff74b9ff)
-                            : Color(0xff74b9ff),
+                            ? iconBool
+                                ? AppTheme.themeDataDark.primaryIconTheme.color
+                                : AppTheme.themeData.primaryIconTheme.color
+                            : iconBool
+                                ? AppTheme.themeDataDark.primaryColor
+                                : AppTheme.themeData.primaryColor,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(

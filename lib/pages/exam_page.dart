@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:exam_app/models/exam/Exam.dart';
+import 'package:exam_app/pages/home_page.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:exam_app/utils/face_detection/face_detection_util.dart';
@@ -14,6 +15,11 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_count_down/timer_controller.dart';
+
+import '../constants/routes.dart';
+import '../models/student/Student.dart';
+import '../stores/exam/assigned_exam_store.dart';
+import '../stores/student/student_store.dart';
 
 // TODO: Disable Screenshot
 
@@ -65,6 +71,14 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       if (count >= 5) {
         super.dispose();
         Navigator.pop(context);
+        Student student = context.read<StudentStore>().currentStudent!;
+
+        context.read<StudentStore>().login(student);
+        context
+            .read<AssignedExamStore>()
+            .getAssignedExams(student.id, student.token);
+
+        Navigator.pushReplacementNamed(context, Routes.home);
       }
       print('paused');
       _countdownController!.pause();
@@ -293,6 +307,14 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       if (count >= 5) {
         super.dispose();
         Navigator.pop(context);
+        Student student = context.read<StudentStore>().currentStudent!;
+
+        context.read<StudentStore>().login(student);
+        context
+            .read<AssignedExamStore>()
+            .getAssignedExams(student.id, student.token);
+
+        Navigator.pushReplacementNamed(context, Routes.home);
       }
       print('CHEATING DETECTED');
     } else if (cheatingStatus == CheatingStatus.NotDetected) {
@@ -304,6 +326,14 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       if (count >= 5) {
         super.dispose();
         Navigator.pop(context);
+        Student student = context.read<StudentStore>().currentStudent!;
+
+        context.read<StudentStore>().login(student);
+        context
+            .read<AssignedExamStore>()
+            .getAssignedExams(student.id, student.token);
+
+        Navigator.pushReplacementNamed(context, Routes.home);
       }
     }
   }

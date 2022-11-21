@@ -1,4 +1,3 @@
-import 'package:exam_app/constants/colors.dart';
 import 'package:exam_app/constants/font_family.dart';
 import 'package:flutter/material.dart';
 

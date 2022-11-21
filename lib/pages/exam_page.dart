@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:exam_app/models/exam/Exam.dart';
-import 'package:exam_app/pages/home_page.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:exam_app/utils/face_detection/face_detection_util.dart';
@@ -20,8 +19,6 @@ import '../constants/routes.dart';
 import '../models/student/Student.dart';
 import '../stores/exam/assigned_exam_store.dart';
 import '../stores/student/student_store.dart';
-
-// TODO: Disable Screenshot
 
 class ExamPage extends StatefulWidget {
   @override

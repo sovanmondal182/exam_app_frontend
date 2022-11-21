@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
         routes: Routes.routes,
         debugShowCheckedModeBanner: false,
         home: _studentStore.isLoggedIn ? HomePage() : LoginPage(),
-        // home: HomePage(),
         builder: EasyLoading.init(),
       ),
     );

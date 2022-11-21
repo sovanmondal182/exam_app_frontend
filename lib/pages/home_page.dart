@@ -1,6 +1,7 @@
 import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/models/exam/Exam.dart';
+import 'package:exam_app/pages/user_profile.dart';
 import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
 import 'package:exam_app/widgets/home/exam_card.dart';
@@ -34,9 +35,6 @@ class _HomePageState extends State<HomePage> {
       appBar: _buildAppBar(context),
       body: SingleChildScrollView(
         child: Container(
-          // color: _iconbool
-          //     ? AppTheme.themeDataDark.primaryColorDark
-          //     : AppTheme.themeData.primaryColorDark,
           width: double.infinity,
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           child: Column(
@@ -57,15 +55,27 @@ class _HomePageState extends State<HomePage> {
       title: Text("Welcome"),
       actions: [
         PopupMenuButton(
+          onSelected: (value) {
+            if (value == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfile(),
+                ),
+              );
+            } else if (value == 2) {
+              logout(context);
+            }
+          },
           color: _iconbool
-              ? AppTheme.themeDataDark.primaryColor
-              : AppTheme.themeData.primaryColor,
+              ? AppTheme.themeDataDark.primaryColorDark
+              : AppTheme.themeData.primaryColorDark,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: Image(
-                image: NetworkImage('https://picsum.photos/250?image=9'),
+                image: NetworkImage("https://picsum.photos/200"),
               ),
             ),
           ),
@@ -89,8 +99,6 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   setState(() {
                     _iconbool = !_iconbool;
-                    print(_iconbool);
-                    print(_icondark.toString());
                   });
                 },
                 value: 1,
@@ -110,10 +118,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               PopupMenuItem<int>(
-                onTap: () {
-                  logout(context);
-                },
-                value: 4,
+                value: 2,
                 child: Padding(
                   padding: EdgeInsets.only(right: 20, left: 10),
                   child: Text("Sign Out",
@@ -125,10 +130,6 @@ class _HomePageState extends State<HomePage> {
             ];
           },
         ),
-        // IconButton(
-        //   icon: Icon(Icons.logout),
-        //   onPressed: () => logout(context),
-        // )
       ],
     );
   }

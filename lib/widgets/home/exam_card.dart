@@ -60,7 +60,9 @@ class ExamCard extends StatelessWidget {
         height: 190,
         width: 370,
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: iconBool
+              ? AppTheme.themeDataDark.primaryColorLight
+              : AppTheme.themeData.primaryColorLight,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -76,7 +78,7 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff636e72),
+                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                   Text(
@@ -85,13 +87,13 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff636e72),
+                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
               ),
               Divider(
-                color: Color(0xff636e72),
+                color: iconBool ? Colors.white : Colors.black,
                 thickness: 0.5,
               ),
               Row(
@@ -101,7 +103,7 @@ class ExamCard extends StatelessWidget {
                       Icon(
                         Icons.calendar_today_outlined,
                         size: 17,
-                        color: Color(0xff636e72),
+                        color: iconBool ? Colors.white : Colors.black,
                       ),
                       SizedBox(width: 5),
                       Text(
@@ -113,14 +115,14 @@ class ExamCard extends StatelessWidget {
                           fontFamily: "assets/fonts/Roboto-Medium.ttf",
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xff636e72),
+                          color: iconBool ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(width: 10),
                       Icon(
                         Icons.arrow_forward_rounded,
                         size: 17,
-                        color: Color(0xff636e72),
+                        color: iconBool ? Colors.white : Colors.black,
                       ),
                       SizedBox(width: 10),
                       Text(
@@ -132,7 +134,7 @@ class ExamCard extends StatelessWidget {
                           fontFamily: "assets/fonts/Roboto-Medium.ttf",
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xff636e72),
+                          color: iconBool ? Colors.white : Colors.black,
                         ),
                       ),
                     ],
@@ -145,7 +147,7 @@ class ExamCard extends StatelessWidget {
                   Icon(
                     Icons.timelapse,
                     size: 20,
-                    color: Color(0xff636e72),
+                    color: iconBool ? Colors.white : Colors.black,
                   ),
                   SizedBox(width: 5),
                   Text(
@@ -154,7 +156,7 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff636e72),
+                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -165,7 +167,7 @@ class ExamCard extends StatelessWidget {
                   Icon(
                     Icons.list_alt,
                     size: 20,
-                    color: Color(0xff636e72),
+                    color: iconBool ? Colors.white : Colors.black,
                   ),
                   SizedBox(width: 5),
                   Text(
@@ -174,7 +176,7 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff636e72),
+                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -211,7 +213,7 @@ class ExamCard extends StatelessWidget {
                             fontFamily: "assets/fonts/Roboto-Medium.ttf",
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                            color: iconBool ? Colors.white : Colors.black,
                           ),
                         ),
                       ),

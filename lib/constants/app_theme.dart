@@ -9,7 +9,7 @@ class AppTheme {
     fontFamily: FontFamily.productSans,
     brightness: Brightness.light,
     primaryColor: Colors.indigo,
-    primaryColorLight: Colors.indigo[200],
+    primaryColorLight: Colors.black12,
     primaryColorDark: Colors.white,
     primaryIconTheme: IconThemeData(color: Colors.indigo[200]),
   );
@@ -18,8 +18,8 @@ class AppTheme {
     fontFamily: FontFamily.productSans,
     brightness: Brightness.dark,
     primaryColor: Colors.purpleAccent[700],
-    primaryColorLight: Colors.purpleAccent[100],
+    primaryColorLight: Colors.white10,
     primaryColorDark: Colors.black87,
-    primaryIconTheme: IconThemeData(color: Colors.purpleAccent[100]),
+    primaryIconTheme: IconThemeData(color: Colors.deepPurple[100]),
   );
 }

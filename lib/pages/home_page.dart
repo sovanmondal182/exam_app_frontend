@@ -1,13 +1,14 @@
 import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/models/exam/Exam.dart';
-import 'package:exam_app/pages/user_profile.dart';
 import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
 import 'package:exam_app/widgets/home/exam_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+
+import '../models/student/Student.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,11 +29,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Student student = context.read<StudentStore>().currentStudent!;
+
     return Scaffold(
       backgroundColor: _iconbool
-          ? AppTheme.themeDataDark.primaryColorDark
-          : AppTheme.themeData.primaryColorDark,
-      appBar: _buildAppBar(context),
+          ? AppTheme.themeDataDark.backgroundColor
+          : AppTheme.themeData.backgroundColor,
+      appBar: _buildAppBar(context, student),
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
@@ -47,29 +50,40 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(context) {
+  PreferredSizeWidget _buildAppBar(context, student) {
     return AppBar(
-      backgroundColor: _iconbool
-          ? AppTheme.themeDataDark.primaryColor
-          : AppTheme.themeData.primaryColor,
-      title: Text("Welcome"),
+      shape: ShapeBorder.lerp(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          0),
+      elevation: 0,
+      backgroundColor: AppTheme.themeData.primaryColor,
+      title: Text("Welcome " + student.fname),
       actions: [
         PopupMenuButton(
           onSelected: (value) {
             if (value == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserProfile(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => UserProfile(),
+              //   ),
+              // );
             } else if (value == 2) {
               logout(context);
             }
           },
           color: _iconbool
-              ? AppTheme.themeDataDark.primaryColorDark
-              : AppTheme.themeData.primaryColorDark,
+              ? AppTheme.themeDataDark.dialogBackgroundColor
+              : AppTheme.themeData.dialogBackgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: ClipRRect(
@@ -85,16 +99,16 @@ class _HomePageState extends State<HomePage> {
           ),
           itemBuilder: (context) {
             return [
-              PopupMenuItem<int>(
-                value: 0,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 20, left: 10),
-                  child: Text("Profile",
-                      style: TextStyle(
-                        color: _iconbool ? Colors.white : Colors.black,
-                      )),
-                ),
-              ),
+              // PopupMenuItem<int>(
+              //   value: 0,
+              //   child: Padding(
+              //     padding: EdgeInsets.only(right: 20, left: 10),
+              //     child: Text("Profile",
+              //         style: TextStyle(
+              //           color: _iconbool ? Colors.white : Colors.black,
+              //         )),
+              //   ),
+              // ),
               PopupMenuItem<int>(
                 onTap: () {
                   setState(() {

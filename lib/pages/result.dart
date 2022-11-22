@@ -1,3 +1,4 @@
+import 'package:exam_app/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
@@ -9,18 +10,35 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppTheme.themeData.primaryColor,
         centerTitle: true,
         title: Text("Result"),
       ),
       body: Container(
-        child: Center(
-          child: Text(
-            "Your Score:" + score.toString(),
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                'Thank you for taking the exam',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
+            SizedBox(height: 10),
+            Center(
+              child: Text(
+                "You Scored " + score.toString(),
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

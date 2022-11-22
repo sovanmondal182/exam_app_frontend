@@ -1,3 +1,4 @@
+import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/constants/strings.dart';
 import 'package:exam_app/models/student/Student.dart';
@@ -46,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
       context
           .read<AssignedExamStore>()
           .getAssignedExams(student.id, student.token);
-
       AppUtils.dismissLoading();
       Navigator.pushReplacementNamed(context, Routes.home);
     } catch (e) {
@@ -78,20 +78,17 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/logo.png',
-                    scale: 3,
-                    key: Key("login_logo"),
+                    'assets/images/logo_app.png',
+                    scale: 1.5,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   Text(
-                    "ONLINE EXAM APP",
+                    "LOGIN",
                     style: TextStyle(
-                      fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff34656d),
+                      color: AppTheme.themeData.highlightColor,
                     ),
-                    key: Key("login_app_name"),
                   )
                 ],
               ),
@@ -106,7 +103,15 @@ class _LoginPageState extends State<LoginPage> {
                 key: Key(Strings.idFieldKey),
                 controller: _idController,
                 decoration: InputDecoration(
-                  hintText: Strings.idFieldHint,
+                  border: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.person,
+                    size: 30,
+                  ),
+                  label: Text(
+                    'Login ID',
+                  ),
+                  labelStyle: TextStyle(fontSize: 20),
                   errorText: isIdValid ? null : Strings.idFieldError,
                 ),
               ),
@@ -117,14 +122,24 @@ class _LoginPageState extends State<LoginPage> {
                 key: Key(Strings.passwordFieldKey),
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  hintText: Strings.passwordFieldHint,
+                  border: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    size: 30,
+                  ),
+                  label: Text(
+                    Strings.passwordFieldHint,
+                  ),
+                  labelStyle: TextStyle(
+                    fontSize: 20,
+                  ),
                   errorText:
                       isPasswordValid ? null : Strings.passwordFieldError,
                 ),
                 obscureText: true,
               ),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 25),
             GestureDetector(
               onTap: () => _loginPressed(context),
               key: Key(Strings.loginButtonKey),
@@ -132,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50,
                 width: 300,
                 decoration: BoxDecoration(
-                  color: Color(0xffa7bbc7),
+                  color: AppTheme.themeDataDark.highlightColor,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: Center(
@@ -141,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade900,
+                      color: Colors.white,
                     ),
                   ),
                 ),

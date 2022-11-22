@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
@@ -135,14 +136,14 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
               color: Colors.white,
               child: Column(
                 children: [
-                  SizedBox(height: 20),
-                  QuestionWidget(),
-                  SizedBox(height: 20),
-                  ExamNavigationButtons(onAI: _onAITapped),
-                  SizedBox(height: 30),
-                  _buildInfoWidget(),
                   SizedBox(height: 30),
                   _buildQuestionButtons(),
+                  SizedBox(height: 20),
+                  _buildInfoWidget(),
+                  SizedBox(height: 30),
+                  QuestionWidget(),
+                  SizedBox(height: 5),
+                  ExamNavigationButtons(onAI: _onAITapped),
                   SizedBox(height: 30),
                   _buildVideoSection(),
                   SizedBox(height: 50),
@@ -157,6 +158,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
 
   _buildAppBar() {
     return AppBar(
+      backgroundColor: AppTheme.themeData.primaryColor,
       title: Text(exam!.name),
       actions: [
         Row(
@@ -179,8 +181,8 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
           height: 20,
           width: 20,
           decoration: BoxDecoration(
-            color: Color(0xff9fe6a0),
-            borderRadius: BorderRadius.circular(3),
+            color: Color.fromARGB(255, 0, 157, 3),
+            borderRadius: BorderRadius.circular(30),
           ),
         ),
         SizedBox(width: 8),
@@ -198,8 +200,8 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
           height: 20,
           width: 20,
           decoration: BoxDecoration(
-            color: Color(0xff132c33),
-            borderRadius: BorderRadius.circular(3),
+            color: Colors.black12,
+            borderRadius: BorderRadius.circular(30),
           ),
         ),
         SizedBox(width: 8),

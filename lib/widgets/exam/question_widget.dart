@@ -28,12 +28,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 Row(
                   children: [
                     Text(
-                      '${currentQuesNo + 1}:  ',
+                      '${currentQuesNo + 1}.  ',
                       style: TextStyle(
                         fontFamily: "assets/fonts/Roboto-Medium.ttf",
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xff636e72),
+                        color: Colors.black,
                       ),
                     ),
                     Text(
@@ -42,10 +42,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         fontFamily: "assets/fonts/Roboto-Medium.ttf",
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xff636e72),
+                        color: Colors.black,
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 ..._buildOptions(currentQues, currentQuesNo, context),
               ],
@@ -73,7 +76,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               fontFamily: "assets/fonts/Roboto-Medium.ttf",
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              color: Color(0xff636e72),
+              color: Colors.black,
             ),
           ),
           activeColor: Colors.blueGrey,

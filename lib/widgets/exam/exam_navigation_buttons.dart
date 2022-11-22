@@ -1,3 +1,4 @@
+import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/models/student/Student.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
@@ -29,7 +30,7 @@ class ExamNavigationButtons extends StatelessWidget {
             return context.watch<ExamStore>().isLastQuestion
                 ? ExamButton(
                     text: "END EXAM",
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 177, 49, 40),
                     onPressed: () async {
                       bool confirmEnd = await confirm(
                         context,
@@ -52,6 +53,7 @@ class ExamNavigationButtons extends StatelessWidget {
                     },
                   )
                 : ExamButton(
+                    color: AppTheme.themeDataDark.highlightColor,
                     text: "NEXT",
                     onPressed: () {
                       context.read<ExamStore>().goToNextQuestion();

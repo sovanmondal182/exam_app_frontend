@@ -1,7 +1,6 @@
 import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/constants/strings.dart';
-import 'package:exam_app/pages/home_page.dart';
-import 'package:exam_app/pages/login_page.dart';
+import 'package:exam_app/pages/splash.dart';
 import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
@@ -37,7 +36,8 @@ class MyApp extends StatelessWidget {
         title: Strings.appName,
         routes: Routes.routes,
         debugShowCheckedModeBanner: false,
-        home: _studentStore.isLoggedIn ? HomePage() : LoginPage(),
+        // home: _studentStore.isLoggedIn ? HomePage() : LoginPage(),
+        home: SplashScreen(),
         builder: EasyLoading.init(),
       ),
     );

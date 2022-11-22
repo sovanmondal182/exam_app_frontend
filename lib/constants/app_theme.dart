@@ -8,9 +8,11 @@ class AppTheme {
     fontFamily: FontFamily.productSans,
     brightness: Brightness.light,
     primaryColor: Colors.indigo,
-    primaryColorLight: Colors.black12,
-    primaryColorDark: Colors.white,
-    primaryIconTheme: IconThemeData(color: Colors.indigo[200]),
+    primaryColorLight: Color.fromARGB(31, 121, 121, 121),
+    dialogBackgroundColor: Colors.white,
+    backgroundColor: Colors.white,
+    highlightColor: Color.fromARGB(255, 0, 131, 196),
+    primaryIconTheme: IconThemeData(color: Color.fromARGB(255, 161, 191, 206)),
   );
 
   static final ThemeData themeDataDark = ThemeData(
@@ -18,7 +20,9 @@ class AppTheme {
     brightness: Brightness.dark,
     primaryColor: Colors.purpleAccent[700],
     primaryColorLight: Colors.white10,
-    primaryColorDark: Colors.black87,
+    dialogBackgroundColor: Colors.black,
+    backgroundColor: Color.fromARGB(255, 4, 9, 36),
+    highlightColor: Color.fromARGB(255, 0, 131, 196),
     primaryIconTheme: IconThemeData(color: Colors.deepPurple[100]),
   );
 }

@@ -199,11 +199,11 @@ class ExamCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: examType != ExamType.Present
                             ? iconBool
-                                ? AppTheme.themeDataDark.primaryIconTheme.color
+                                ? Color.fromARGB(255, 27, 27, 27)
                                 : AppTheme.themeData.primaryIconTheme.color
                             : iconBool
-                                ? AppTheme.themeDataDark.primaryColor
-                                : AppTheme.themeData.primaryColor,
+                                ? AppTheme.themeDataDark.highlightColor
+                                : AppTheme.themeData.highlightColor,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
@@ -213,7 +213,11 @@ class ExamCard extends StatelessWidget {
                             fontFamily: "assets/fonts/Roboto-Medium.ttf",
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
-                            color: iconBool ? Colors.white : Colors.black,
+                            color: examType != ExamType.Present
+                                ? iconBool
+                                    ? AppTheme.themeDataDark.highlightColor
+                                    : Colors.white
+                                : Colors.white,
                           ),
                         ),
                       ),

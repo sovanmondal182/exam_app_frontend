@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/models/exam/Exam.dart';
+import 'package:exam_app/pages/home_page.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:exam_app/utils/face_detection/face_detection_util.dart';
@@ -130,10 +131,12 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       onWillPop: () async => false,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: HomePage.iconBool
+              ? AppTheme.themeDataDark.backgroundColor
+              : AppTheme.themeData.backgroundColor,
           appBar: _buildAppBar(),
           body: SingleChildScrollView(
             child: Container(
-              color: Colors.white,
               child: Column(
                 children: [
                   SizedBox(height: 30),
@@ -158,6 +161,20 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
 
   _buildAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
+      shape: ShapeBorder.lerp(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          0),
+      elevation: 0,
       backgroundColor: AppTheme.themeData.primaryColor,
       title: Text(exam!.name),
       actions: [
@@ -192,7 +209,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
             fontFamily: "assets/fonts/Roboto-Medium.ttf",
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Colors.black,
+            color: HomePage.iconBool ? Colors.white : Colors.black,
           ),
         ),
         SizedBox(width: 35),
@@ -200,7 +217,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
           height: 20,
           width: 20,
           decoration: BoxDecoration(
-            color: Colors.black12,
+            color: HomePage.iconBool ? Colors.white : Colors.black12,
             borderRadius: BorderRadius.circular(30),
           ),
         ),
@@ -211,7 +228,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
             fontFamily: "assets/fonts/Roboto-Medium.ttf",
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Colors.black,
+            color: HomePage.iconBool ? Colors.white : Colors.black,
           ),
         )
       ],

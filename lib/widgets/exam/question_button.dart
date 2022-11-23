@@ -1,3 +1,4 @@
+import 'package:exam_app/pages/home_page.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -23,7 +24,9 @@ class QuestionButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               color: context.watch<ExamStore>().answers![questionNo] != null
                   ? Color.fromARGB(255, 0, 157, 3)
-                  : Colors.black12,
+                  : HomePage.iconBool
+                      ? Colors.white
+                      : Colors.black12,
             ),
             alignment: Alignment.center,
             child: Text(

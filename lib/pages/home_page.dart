@@ -3,6 +3,7 @@ import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
+import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:exam_app/widgets/home/exam_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -11,6 +12,8 @@ import 'package:provider/provider.dart';
 import '../models/student/Student.dart';
 
 class HomePage extends StatefulWidget {
+  static bool iconBool = false;
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -22,6 +25,8 @@ IconData _iconlight = Icons.light_mode_rounded;
 IconData _icondark = Icons.nights_stay_rounded;
 
 class _HomePageState extends State<HomePage> {
+  DateTime timeBackPressed = DateTime.now();
+
   logout(BuildContext context) {
     context.read<StudentStore>().logout();
     Navigator.pushReplacementNamed(context, Routes.login);
@@ -31,19 +36,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Student student = context.read<StudentStore>().currentStudent!;
 
-    return Scaffold(
-      backgroundColor: _iconbool
-          ? AppTheme.themeDataDark.backgroundColor
-          : AppTheme.themeData.backgroundColor,
-      appBar: _buildAppBar(context, student),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-          child: Column(
-            children: [
-              _buildExamCards(context),
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        final difference = DateTime.now().difference(timeBackPressed);
+        final isExitWarning = difference.inSeconds > 2;
+        timeBackPressed = DateTime.now();
+        if (isExitWarning) {
+          AppUtils.showToast('Please back again to exit');
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: Scaffold(
+        backgroundColor: _iconbool
+            ? AppTheme.themeDataDark.backgroundColor
+            : AppTheme.themeData.backgroundColor,
+        appBar: _buildAppBar(context, student),
+        body: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Column(
+              children: [
+                _buildExamCards(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -70,14 +88,7 @@ class _HomePageState extends State<HomePage> {
       actions: [
         PopupMenuButton(
           onSelected: (value) {
-            if (value == 0) {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => UserProfile(),
-              //   ),
-              // );
-            } else if (value == 2) {
+            if (value == 1) {
               logout(context);
             }
           },
@@ -99,23 +110,14 @@ class _HomePageState extends State<HomePage> {
           ),
           itemBuilder: (context) {
             return [
-              // PopupMenuItem<int>(
-              //   value: 0,
-              //   child: Padding(
-              //     padding: EdgeInsets.only(right: 20, left: 10),
-              //     child: Text("Profile",
-              //         style: TextStyle(
-              //           color: _iconbool ? Colors.white : Colors.black,
-              //         )),
-              //   ),
-              // ),
               PopupMenuItem<int>(
                 onTap: () {
                   setState(() {
+                    HomePage.iconBool = !HomePage.iconBool;
                     _iconbool = !_iconbool;
                   });
                 },
-                value: 1,
+                value: 0,
                 child: Padding(
                   padding: EdgeInsets.only(right: 20, left: 10),
                   child: Row(
@@ -132,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               PopupMenuItem<int>(
-                value: 2,
+                value: 1,
                 child: Padding(
                   padding: EdgeInsets.only(right: 20, left: 10),
                   child: Text("Sign Out",

@@ -64,8 +64,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _idController.text = "63736ebf5ab865e02d343134";
-    _passwordController.text = "12345678";
+    // _idController.text = "63736ebf5ab865e02d343134";
+    // _idController.text = "637e023a8b676e059b66e310";
+    // _passwordController.text = "12345678";
 
     return Scaffold(
       body: Container(

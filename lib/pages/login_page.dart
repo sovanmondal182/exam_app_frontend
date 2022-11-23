@@ -24,8 +24,8 @@ class _LoginPageState extends State<LoginPage> {
 
   _validateInputFields() {
     setState(() {
-      isIdValid = _idController.text.length >= 10;
-      isPasswordValid = _passwordController.text.length >= 8;
+      isIdValid = _idController.text.length == 24;
+      isPasswordValid = _passwordController.text.length == 8;
     });
   }
 

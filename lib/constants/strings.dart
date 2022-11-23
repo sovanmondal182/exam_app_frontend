@@ -13,8 +13,7 @@ class Strings {
 
   static const String passwordFieldKey = "login_input_password";
   static const String passwordFieldHint = "Password";
-  static const String passwordFieldError =
-      "Password must be at least 8 character long";
+  static const String passwordFieldError = "Password must be of 8 characters";
 
   static const String loginButtonKey = "login_button";
   static const String loginButtonText = "Login";

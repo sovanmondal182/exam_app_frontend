@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ExamLeavingAlert extends StatelessWidget {
+class ExamCheatingAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -11,7 +11,7 @@ class ExamLeavingAlert extends StatelessWidget {
         ),
       ),
       content: Text(
-        "You attempt to close the app may flagged as cheating!",
+        "We have detected you are cheating. Your exam has been terminated!",
       ),
       actions: [
         TextButton(

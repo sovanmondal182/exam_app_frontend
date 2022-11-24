@@ -5,6 +5,7 @@ import 'package:exam_app/pages/home_page.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
 import 'package:exam_app/utils/face_detection/face_detection_util.dart';
+import 'package:exam_app/widgets/exam/exam_cheating_alert.dart';
 import 'package:exam_app/widgets/exam/exam_navigation_buttons.dart';
 import 'package:exam_app/widgets/exam/exam_timer.dart';
 import 'package:exam_app/widgets/exam/exam_warning_alert.dart';
@@ -44,7 +45,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     initCameras();
     FaceDetectionUtil.initialize();
-    timer = Timer.periodic(Duration(seconds: 5),
+    timer = Timer.periodic(Duration(seconds: 3),
         (Timer t) => [_onPictureClicked(), _onAITapped()]);
     disableCapture().then((value) => print("Capture Disabled"));
   }
@@ -68,16 +69,22 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       context.read<ExamStore>().didLeaveExam = true;
       count = count + 1;
       if (count >= 5) {
-        super.dispose();
-        Navigator.pop(context);
-        Student student = context.read<StudentStore>().currentStudent!;
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => ExamCheatingAlert(),
+        ).then((value) {
+          super.dispose();
+          Navigator.pop(context);
+          Student student = context.read<StudentStore>().currentStudent!;
 
-        context.read<StudentStore>().login(student);
-        context
-            .read<AssignedExamStore>()
-            .getAssignedExams(student.id, student.token);
+          context.read<StudentStore>().login(student);
+          context
+              .read<AssignedExamStore>()
+              .getAssignedExams(student.id, student.token);
 
-        Navigator.pushReplacementNamed(context, Routes.home);
+          Navigator.pushReplacementNamed(context, Routes.home);
+        });
       }
       print('paused');
       _countdownController!.pause();
@@ -85,7 +92,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => ExamWarningAlert(),
+        builder: (_) => ExamLeavingAlert(),
       ).then((value) {
         context.read<ExamStore>().didLeaveExam = false;
         ++context.read<ExamStore>().leaveExamCount;
@@ -321,16 +328,24 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       count = count + 1;
       print(count);
       if (count >= 5) {
-        super.dispose();
-        Navigator.pop(context);
-        Student student = context.read<StudentStore>().currentStudent!;
+        _countdownController!.pause();
 
-        context.read<StudentStore>().login(student);
-        context
-            .read<AssignedExamStore>()
-            .getAssignedExams(student.id, student.token);
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => ExamCheatingAlert(),
+        ).then((value) {
+          Navigator.pop(context);
+          super.dispose();
+          Student student = context.read<StudentStore>().currentStudent!;
 
-        Navigator.pushReplacementNamed(context, Routes.home);
+          context.read<StudentStore>().login(student);
+          context
+              .read<AssignedExamStore>()
+              .getAssignedExams(student.id, student.token);
+
+          Navigator.pushReplacementNamed(context, Routes.home);
+        });
       }
       print('CHEATING DETECTED');
     } else if (cheatingStatus == CheatingStatus.NotDetected) {
@@ -340,16 +355,23 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       print('Failed to detect face');
       count = count + 1;
       if (count >= 5) {
-        super.dispose();
-        Navigator.pop(context);
-        Student student = context.read<StudentStore>().currentStudent!;
+        _countdownController!.pause();
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => ExamCheatingAlert(),
+        ).then((value) {
+          Navigator.pop(context);
+          super.dispose();
+          Student student = context.read<StudentStore>().currentStudent!;
 
-        context.read<StudentStore>().login(student);
-        context
-            .read<AssignedExamStore>()
-            .getAssignedExams(student.id, student.token);
+          context.read<StudentStore>().login(student);
+          context
+              .read<AssignedExamStore>()
+              .getAssignedExams(student.id, student.token);
 
-        Navigator.pushReplacementNamed(context, Routes.home);
+          Navigator.pushReplacementNamed(context, Routes.home);
+        });
       }
     }
   }

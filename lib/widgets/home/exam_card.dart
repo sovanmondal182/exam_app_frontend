@@ -55,18 +55,30 @@ class ExamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     detectDate();
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
         height: 190,
         width: 370,
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5.0,
+              color: Colors.black12,
+              offset: Offset(10, 10),
+            ),
+            BoxShadow(
+              blurRadius: 5.0,
+              color: Colors.black12,
+              offset: Offset(-1, -1),
+            ),
+          ],
           color: iconBool
               ? AppTheme.themeDataDark.primaryColorLight
-              : AppTheme.themeData.primaryColorLight,
+              : Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               Row(

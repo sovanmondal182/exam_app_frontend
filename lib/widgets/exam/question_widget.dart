@@ -34,6 +34,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       '${currentQuesNo + 1}.  ',
@@ -44,13 +45,17 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         color: HomePage.iconBool ? Colors.white : Colors.black,
                       ),
                     ),
-                    Text(
-                      currentQues!.title,
-                      style: TextStyle(
-                        fontFamily: "assets/fonts/Roboto-Medium.ttf",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: HomePage.iconBool ? Colors.white : Colors.black,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                        currentQues!.title,
+                        style: TextStyle(
+                          fontFamily: "assets/fonts/Roboto-Medium.ttf",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              HomePage.iconBool ? Colors.white : Colors.black,
+                        ),
                       ),
                     ),
                   ],

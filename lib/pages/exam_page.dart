@@ -119,7 +119,7 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
         if (!mounted) {
           return;
         }
-        setState(() {});
+        // setState(() {});
       });
     } catch (e) {
       debugPrint("Failed to initialize camera: $e");
@@ -138,9 +138,6 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
       onWillPop: () async => false,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: HomePage.iconBool
-              ? AppTheme.themeDataDark.backgroundColor
-              : AppTheme.themeData.backgroundColor,
           appBar: _buildAppBar(),
           body: SingleChildScrollView(
             child: Container(
@@ -182,7 +179,6 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
           ),
           0),
       elevation: 0,
-      backgroundColor: AppTheme.themeData.primaryColor,
       title: Text(exam!.name),
       actions: [
         Row(
@@ -216,7 +212,6 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
             fontFamily: "assets/fonts/Roboto-Medium.ttf",
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: HomePage.iconBool ? Colors.white : Colors.black,
           ),
         ),
         SizedBox(width: 35),
@@ -224,7 +219,6 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
           height: 20,
           width: 20,
           decoration: BoxDecoration(
-            color: HomePage.iconBool ? Colors.white : Colors.black12,
             borderRadius: BorderRadius.circular(30),
           ),
         ),
@@ -235,7 +229,6 @@ class _ExamPageState extends State<ExamPage> with WidgetsBindingObserver {
             fontFamily: "assets/fonts/Roboto-Medium.ttf",
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: HomePage.iconBool ? Colors.white : Colors.black,
           ),
         )
       ],

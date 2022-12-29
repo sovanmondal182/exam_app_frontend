@@ -1,6 +1,7 @@
 import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/constants/routes.dart';
 import 'package:exam_app/models/exam/Exam.dart';
+import 'package:exam_app/providers/theme_provider.dart';
 import 'package:exam_app/stores/exam/assigned_exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
 import 'package:exam_app/utils/app/app_utils.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 import '../models/student/Student.dart';
 
 class HomePage extends StatefulWidget {
-  static bool iconBool = false;
+  // static bool iconBool = false;
 
   const HomePage({Key? key}) : super(key: key);
 
@@ -20,7 +21,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-bool _iconbool = false;
+// bool _iconbool = false;
 IconData _iconlight = Icons.light_mode_rounded;
 IconData _icondark = Icons.nights_stay_rounded;
 
@@ -49,18 +50,24 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Scaffold(
-        backgroundColor: _iconbool
-            ? AppTheme.themeDataDark.backgroundColor
-            : AppTheme.themeData.backgroundColor,
         appBar: _buildAppBar(context, student),
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: Column(
-              children: [
-                _buildExamCards(context),
-              ],
+        body: RefreshIndicator(
+          onRefresh: () async {
+            context
+                .read<AssignedExamStore>()
+                .getAssignedExams(student.id, student.token);
+          },
+          child: SingleChildScrollView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              child: Column(
+                children: [
+                  _buildExamCards(context),
+                ],
+              ),
             ),
           ),
         ),
@@ -69,6 +76,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   PreferredSizeWidget _buildAppBar(context, student) {
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
+
     return AppBar(
       shape: ShapeBorder.lerp(
           RoundedRectangleBorder(
@@ -83,7 +93,6 @@ class _HomePageState extends State<HomePage> {
           ),
           0),
       elevation: 0,
-      backgroundColor: AppTheme.themeData.primaryColor,
       title: Text("Welcome " + student.fname),
       actions: [
         PopupMenuButton(
@@ -92,9 +101,6 @@ class _HomePageState extends State<HomePage> {
               logout(context);
             }
           },
-          color: _iconbool
-              ? AppTheme.themeDataDark.dialogBackgroundColor
-              : AppTheme.themeData.dialogBackgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: ClipRRect(
@@ -112,10 +118,12 @@ class _HomePageState extends State<HomePage> {
             return [
               PopupMenuItem<int>(
                 onTap: () {
-                  setState(() {
-                    HomePage.iconBool = !HomePage.iconBool;
-                    _iconbool = !_iconbool;
-                  });
+                  // setState(() {
+                  //   HomePage.iconBool = !HomePage.iconBool;
+                  //   _iconbool = !_iconbool;
+                  // });
+
+                  themeProvider.toggleTheme();
                 },
                 value: 0,
                 child: Padding(
@@ -123,12 +131,15 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Theme",
-                          style: TextStyle(
-                            color: _iconbool ? Colors.white : Colors.black,
-                          )),
-                      Icon(_iconbool ? _icondark : _iconlight,
-                          color: _iconbool ? Colors.white : Colors.black),
+                      Text("Theme"),
+                      Icon(
+                        (themeProvider.themeData == ThemeMode.dark)
+                            ? _icondark
+                            : _iconlight,
+                        color: (themeProvider.themeData == ThemeMode.dark)
+                            ? darkTheme.iconTheme.color
+                            : lightTheme.iconTheme.color,
+                      ),
                     ],
                   ),
                 ),
@@ -137,10 +148,7 @@ class _HomePageState extends State<HomePage> {
                 value: 1,
                 child: Padding(
                   padding: EdgeInsets.only(right: 20, left: 10),
-                  child: Text("Sign Out",
-                      style: TextStyle(
-                        color: _iconbool ? Colors.white : Colors.black,
-                      )),
+                  child: Text("Sign Out", style: TextStyle()),
                 ),
               ),
             ];
@@ -159,7 +167,7 @@ class _HomePageState extends State<HomePage> {
               .assignedExams
               .map((Exam exam) => ExamCard(
                     exam: exam,
-                    iconBool: _iconbool,
+                    // iconBool: _iconbool,
                   ))
               .toList(),
         );

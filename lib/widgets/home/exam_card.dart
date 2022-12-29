@@ -1,6 +1,7 @@
 import 'package:exam_app/constants/app_theme.dart';
 import 'package:exam_app/models/exam/Exam.dart';
 import 'package:exam_app/models/student/Student.dart';
+import 'package:exam_app/providers/theme_provider.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:exam_app/stores/student/student_store.dart';
 import 'package:date_format/date_format.dart';
@@ -19,11 +20,8 @@ class ExamCard extends StatelessWidget {
   final Exam exam;
   ExamType? examType;
 
-  bool iconBool;
-
   ExamCard({
     required this.exam,
-    required this.iconBool,
   });
 
   onStartExamTapped(BuildContext context) async {
@@ -53,6 +51,8 @@ class ExamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
     detectDate();
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -72,9 +72,9 @@ class ExamCard extends StatelessWidget {
               offset: Offset(-1, -1),
             ),
           ],
-          color: iconBool
-              ? AppTheme.themeDataDark.primaryColorLight
-              : Colors.white,
+          color: (themeProvider.themeData == ThemeMode.dark)
+              ? darkTheme.primaryColorLight
+              : lightTheme.primaryColorLight,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -90,7 +90,6 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                   Text(
@@ -99,13 +98,11 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
               ),
               Divider(
-                color: iconBool ? Colors.white : Colors.black,
                 thickness: 0.5,
               ),
               Row(
@@ -115,7 +112,6 @@ class ExamCard extends StatelessWidget {
                       Icon(
                         Icons.calendar_today_outlined,
                         size: 17,
-                        color: iconBool ? Colors.white : Colors.black,
                       ),
                       SizedBox(width: 5),
                       Text(
@@ -127,14 +123,12 @@ class ExamCard extends StatelessWidget {
                           fontFamily: "assets/fonts/Roboto-Medium.ttf",
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: iconBool ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(width: 10),
                       Icon(
                         Icons.arrow_forward_rounded,
                         size: 17,
-                        color: iconBool ? Colors.white : Colors.black,
                       ),
                       SizedBox(width: 10),
                       Text(
@@ -146,7 +140,6 @@ class ExamCard extends StatelessWidget {
                           fontFamily: "assets/fonts/Roboto-Medium.ttf",
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
-                          color: iconBool ? Colors.white : Colors.black,
                         ),
                       ),
                     ],
@@ -159,7 +152,6 @@ class ExamCard extends StatelessWidget {
                   Icon(
                     Icons.timelapse,
                     size: 20,
-                    color: iconBool ? Colors.white : Colors.black,
                   ),
                   SizedBox(width: 5),
                   Text(
@@ -168,7 +160,6 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -179,7 +170,6 @@ class ExamCard extends StatelessWidget {
                   Icon(
                     Icons.list_alt,
                     size: 20,
-                    color: iconBool ? Colors.white : Colors.black,
                   ),
                   SizedBox(width: 5),
                   Text(
@@ -188,7 +178,6 @@ class ExamCard extends StatelessWidget {
                       fontFamily: "assets/fonts/Roboto-Medium.ttf",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      color: iconBool ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -199,8 +188,7 @@ class ExamCard extends StatelessWidget {
                   GestureDetector(
                     onTap: examType != ExamType.Present
                         ? () {
-                            // onStartExamTapped(context);
-                            print(iconBool);
+                            return;
                           }
                         : () {
                             onStartExamTapped(context);
@@ -210,12 +198,12 @@ class ExamCard extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         color: examType != ExamType.Present
-                            ? iconBool
-                                ? Color.fromARGB(255, 27, 27, 27)
-                                : AppTheme.themeData.primaryIconTheme.color
-                            : iconBool
-                                ? AppTheme.themeDataDark.highlightColor
-                                : AppTheme.themeData.highlightColor,
+                            ? (themeProvider.themeData == ThemeMode.dark)
+                                ? darkTheme.disabledColor
+                                : lightTheme.disabledColor
+                            : (themeProvider.themeData == ThemeMode.dark)
+                                ? darkTheme.highlightColor
+                                : lightTheme.highlightColor,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
@@ -226,8 +214,8 @@ class ExamCard extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             color: examType != ExamType.Present
-                                ? iconBool
-                                    ? AppTheme.themeDataDark.highlightColor
+                                ? (themeProvider.themeData == ThemeMode.dark)
+                                    ? darkTheme.highlightColor
                                     : Colors.white
                                 : Colors.white,
                           ),

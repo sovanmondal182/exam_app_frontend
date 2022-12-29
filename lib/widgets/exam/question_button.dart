@@ -1,4 +1,5 @@
 import 'package:exam_app/pages/home_page.dart';
+import 'package:exam_app/providers/theme_provider.dart';
 import 'package:exam_app/stores/exam/exam_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -11,6 +12,8 @@ class QuestionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
         context.read<ExamStore>().goToQuestion(questionNo);
@@ -24,7 +27,7 @@ class QuestionButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               color: context.watch<ExamStore>().answers![questionNo] != null
                   ? Color.fromARGB(255, 0, 157, 3)
-                  : HomePage.iconBool
+                  : (themeProvider.themeData == ThemeMode.dark)
                       ? Colors.white
                       : Colors.black12,
             ),

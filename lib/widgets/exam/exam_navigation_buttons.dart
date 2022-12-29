@@ -53,7 +53,7 @@ class ExamNavigationButtons extends StatelessWidget {
                     },
                   )
                 : ExamButton(
-                    color: AppTheme.themeDataDark.highlightColor,
+                    color: lightTheme.highlightColor,
                     text: "NEXT",
                     onPressed: () {
                       context.read<ExamStore>().goToNextQuestion();

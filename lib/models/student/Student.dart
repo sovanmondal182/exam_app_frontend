@@ -17,20 +17,6 @@ class Student {
     this.assignedExams,
   });
 
-  factory Student.getDummyStudent() {
-    return Student(
-      id: '1234567890',
-      fname: 'John',
-      lname: 'Doe',
-      token: "token",
-      assignedExams: [
-        Exam.getDummyExam(),
-        Exam.getDummyExam(),
-        Exam.getDummyExam(),
-      ],
-    );
-  }
-
   factory Student.fromJson(var json) {
     return Student(
       id: json['id'],

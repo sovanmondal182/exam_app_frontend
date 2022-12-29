@@ -18,9 +18,6 @@ class ResultPage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: HomePage.iconBool
-            ? AppTheme.themeDataDark.backgroundColor
-            : AppTheme.themeData.backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           shape: ShapeBorder.lerp(
@@ -36,7 +33,6 @@ class ResultPage extends StatelessWidget {
               ),
               0),
           elevation: 0,
-          backgroundColor: AppTheme.themeData.primaryColor,
           centerTitle: true,
           title: Text("Result"),
         ),
@@ -56,7 +52,6 @@ class ResultPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: HomePage.iconBool ? Colors.white : Colors.black,
                       ),
                     ),
                   ),
@@ -67,7 +62,6 @@ class ResultPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: HomePage.iconBool ? Colors.white : Colors.black,
                       ),
                     ),
                   ),
@@ -93,7 +87,7 @@ class ResultPage extends StatelessWidget {
                       height: 50,
                       width: 200,
                       decoration: BoxDecoration(
-                        color: AppTheme.themeDataDark.highlightColor,
+                        color: lightTheme.highlightColor,
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Center(

@@ -23,24 +23,6 @@ class Exam {
     this.status,
   });
 
-  factory Exam.getDummyExam() {
-    return Exam(
-      id: "12345",
-      name: "Maths",
-      startDate: new DateTime.now(),
-      endDate: new DateTime.now(),
-      duration: Duration(seconds: 3600),
-      questionCount: 3,
-      questions: [
-        Question.getDummyQuestion(),
-        Question.getDummyQuestion2(),
-        Question.getDummyQuestion(),
-      ],
-      answerKeys: ['A', 'B', 'C'],
-      status: "pending",
-    );
-  }
-
   factory Exam.fromJson(json) {
     List<Question> questions = [];
 

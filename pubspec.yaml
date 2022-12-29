@@ -36,6 +36,7 @@ dependencies:
   image: ^3.2.0
   characters: ^1.2.1
   flutter_windowmanager: ^0.2.0
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

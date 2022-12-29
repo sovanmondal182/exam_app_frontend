@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,
-                        color: AppTheme.themeData.highlightColor,
+                        color: lightTheme.highlightColor,
                       ),
                     )
                   ],
@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   width: 300,
                   decoration: BoxDecoration(
-                    color: AppTheme.themeDataDark.highlightColor,
+                    color: lightTheme.highlightColor,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Center(
